@@ -85,4 +85,3 @@ class Stock(models.Model):
 
     def current_stock_value(self):
         return round((Decimal(self.current_stock_price()) * Decimal(self.shares)), 3)
-
