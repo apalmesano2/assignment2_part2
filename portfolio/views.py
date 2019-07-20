@@ -183,9 +183,9 @@ def mutual_fund_edit(request, pk):
         if form.is_valid():
             mutual_fund = form.save(commit=False)
             mutual_fund.save()
-            mutual_fund = MutualFund.objects.filter()
+            mutual_funds = MutualFund.objects.filter()
             return render(request, 'portfolio/mutual_fund_list.html',
-                          {'stocks': mutual_fund})
+                          {'mutual_funds': mutual_funds})
     else:
         # edit
         form = MutualFundForm(instance=mutual_fund)
