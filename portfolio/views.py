@@ -215,6 +215,7 @@ def mutual_fund_new(request):
         # print("Else")
     return render(request, 'portfolio/mutual_fund_new.html', {'form': form})
 
+
 @login_required
 def portfolio(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
@@ -240,12 +241,6 @@ def portfolio(request, pk):
         sum_current_mutual_fund_value += mutual_fund.current_mutual_fund_value()
         sum_initial_mutual_fund_value += mutual_fund.initial_mutual_fund_value()
 
-    print('******************************************************')
-    print('******************************************************')
-    print('sum_initial_mutual_fund_value', sum_initial_mutual_fund_value)
-    print('******************************************************')
-    print('******************************************************')
-
     sum_recent_investments = sum_recent_value.get('recent_value__sum')
     sum_acquired_investments = sum_acquired_value.get('acquired_value__sum')
 
@@ -255,7 +250,6 @@ def portfolio(request, pk):
     return render(request, 'portfolio/portfolio.html', {'customers': customers,
                                                         'investments': investments,
                                                         'stocks': stocks,
-                                                        'mutual_funds': mutual_funds,
                                                         'sum_acquired_value': sum_acquired_value,
                                                         'sum_recent_value': sum_recent_value,
                                                         'sum_current_stocks_value': sum_current_stocks_value,
@@ -264,8 +258,9 @@ def portfolio(request, pk):
                                                         'portfolio_current_total': portfolio_current_total,
                                                         'sum_recent_investments': sum_recent_investments,
                                                         'sum_acquired_investments': sum_acquired_investments,
-                                                        # 'sum_current_mutual_fund_value': sum_current_mutual_fund_value,
-                                                        # 'sum_initial_mutual_fund_value': sum_initial_mutual_fund_value
+                                                        'sum_current_mutual_fund_value': sum_current_mutual_fund_value,
+                                                        'sum_initial_mutual_fund_value': sum_initial_mutual_fund_value,
+                                                        'mutual_funds': mutual_funds,
                                                         })
 
 

@@ -75,11 +75,14 @@ class Stock(models.Model):
 
     def current_stock_price(self):
         symbol_f = str(self.symbol)
-        main_api = 'https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols='
+        main_api = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='
         api_key = '&apikey= JNO0VT6F5XU1HWZU'
         url = main_api + symbol_f + api_key
         json_data = requests.get(url).json()
-        open_price = float(json_data["Stock Quotes"][0]["2. price"])
+
+        print('STOCK', api_key, json_data, '\n')
+
+        open_price = json_data.get('Global Quote', {}).get("05. price", self.purchase_price)
         share_value = open_price
         return share_value
 
@@ -108,10 +111,11 @@ class MutualFund(models.Model):
     def current_mutual_fund_price(self):
         mf_symbol_f = str(self.symbol)
         mf_main_api = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol='
-        mf_api_key = '&apikey= JNO0VT6F5XU1HWZU'
+        mf_api_key = '&apikey=GOMG8YHN1JRNWXZO'
         mf_url = mf_main_api + mf_symbol_f + mf_api_key
         mf_json_data = requests.get(mf_url).json()
-        mf_open_price = float(mf_json_data.get('Global Quote').get('05. price'))
+        print('MF', mf_api_key, mf_json_data, '\n')
+        mf_open_price = mf_json_data.get('Global Quote', {}).get("05. price", self.purchase_price)
         mf_share_value = mf_open_price
         return mf_share_value
 
