@@ -79,9 +79,6 @@ class Stock(models.Model):
         api_key = '&apikey= JNO0VT6F5XU1HWZU'
         url = main_api + symbol_f + api_key
         json_data = requests.get(url).json()
-
-        print('STOCK', api_key, json_data, '\n')
-
         open_price = json_data.get('Global Quote', {}).get("05. price", self.purchase_price)
         share_value = open_price
         return share_value
@@ -114,7 +111,6 @@ class MutualFund(models.Model):
         mf_api_key = '&apikey=GOMG8YHN1JRNWXZO'
         mf_url = mf_main_api + mf_symbol_f + mf_api_key
         mf_json_data = requests.get(mf_url).json()
-        print('MF', mf_api_key, mf_json_data, '\n')
         mf_open_price = mf_json_data.get('Global Quote', {}).get("05. price", self.purchase_price)
         mf_share_value = mf_open_price
         return mf_share_value
