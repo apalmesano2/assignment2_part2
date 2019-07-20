@@ -176,7 +176,7 @@ def mutual_fund_list(request):
 
 @login_required
 def mutual_fund_edit(request, pk):
-    mutual_fund = get_object_or_404(Stock, pk=pk)
+    mutual_fund = get_object_or_404(MutualFund, pk=pk)
     if request.method == "POST":
         # update
         form = MutualFundForm(request.POST, instance=mutual_fund)
